@@ -1,5 +1,5 @@
 const HomePage = () => {
-	return <div>HomePage</div>;
+	return <main className="flex min-h-screen">HomePage</main>;
 };
 
 export default HomePage;

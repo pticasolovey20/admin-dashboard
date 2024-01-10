@@ -2,9 +2,23 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-html,
-body {
+:root {
+	--background-primary: #151c2c;
+	--background-secondary: #182237;
+	--background-tertiary: #2e374a;
+	--background-action: #5d57c9;
+
+	--text-primary: #ffffff;
+	--text-secondary: #b7bac1;
+	--text-action: #5d57c9;
+}
+
+* {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+	display: none;
 }

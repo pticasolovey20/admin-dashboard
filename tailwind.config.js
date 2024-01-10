@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
 	content: [
 		'./pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -15,6 +16,21 @@ module.exports = {
 				lg: '1024px',
 				xl: '1280px',
 				xxl: '1536px',
+			},
+
+			backgroundColor: {
+				primary: 'var(--background-primary)',
+				secondary: 'var(--background-secondary)',
+				tertiary: 'var(--background-tertiary)',
+
+				action: 'var(--background-action)',
+			},
+
+			textColor: {
+				primary: 'var(--text-primary)',
+				secondary: 'var(--text-secondary)',
+
+				action: 'var(--text-action)',
 			},
 		},
 	},
