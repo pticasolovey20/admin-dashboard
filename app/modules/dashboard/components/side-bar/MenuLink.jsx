@@ -13,9 +13,9 @@ const MenuLink = ({ title, path, icon, open, setOpenSidebar = () => {} }) => {
 			href={path}
 			onClick={() => setOpenSidebar(false)}
 			className={classNames(
-				'flex items-center gap-3 p-2 sm:p-3 rounded-xl',
-				'hover:bg-tertiary cursor-pointer',
-				pathname === path && 'bg-tertiary'
+				'flex items-center gap-3 p-2.5 rounded-xl',
+				pathname === path ? 'text-white' : 'text-gray-400',
+				'duration-300 hover:text-white cursor-pointer'
 			)}
 		>
 			<div>{icon}</div>

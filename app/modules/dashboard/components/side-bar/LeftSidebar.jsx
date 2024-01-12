@@ -9,12 +9,13 @@ import { leftSideAnimation, menuItemAnimation } from '../../animation';
 import Image from 'next/image';
 import MenuLink from './MenuLink';
 import avatar from '@/public/noavatar.png';
+import { classNames } from '@/app/utils';
 
 const LeftSidebar = () => {
 	const [open, setOpen] = useState(false);
 
 	return (
-		<section className="hidden lg:block sticky top-0 h-screen">
+		<section className="h-screen hidden lg:block sticky top-0">
 			<AnimatePresence>
 				<motion.nav
 					initial="hidden"
@@ -66,7 +67,13 @@ const LeftSidebar = () => {
 						))}
 					</ul>
 
-					<button className="w-full flex items-center gap-3 p-3 mt-2 rounded-xl hover:bg-tertiary">
+					<button
+						className={classNames(
+							'w-full flex items-center gap-3',
+							'p-3 mt-2 rounded-xl duration-300',
+							'text-gray-400 hover:text-white'
+						)}
+					>
 						<div>
 							<MdLogout size={30} />
 						</div>

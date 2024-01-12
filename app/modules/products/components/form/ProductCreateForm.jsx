@@ -36,7 +36,7 @@ const ProductForm = () => {
 			<Input name="color" id="color" type="text" placeholder="Color" />
 			<Input name="size" id="size" type="text" placeholder="Size" />
 
-			<TextArea name="description" id="description" placeholder="Description" rows={16} />
+			<TextArea name="description" id="description" placeholder="Description" rows={8} />
 
 			<SubmitButton label="Submit" />
 		</form>
