@@ -1,12 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { classNames } from '@/app/utils';
 
 import { FiChevronDown } from 'react-icons/fi';
 
-const Select = ({ label, name, id, options, activeSelect, handleToggle }) => {
-	const [selectValue, setSelectValue] = useState('Select Value');
-
+const Select = ({
+	label,
+	name,
+	id,
+	options,
+	placeholder,
+	activeSelect,
+	handleToggle,
+	value,
+	onChange,
+}) => {
 	const selectRef = useRef(null);
 
 	const isCurrentSelectOpen = activeSelect === id;
@@ -22,8 +30,8 @@ const Select = ({ label, name, id, options, activeSelect, handleToggle }) => {
 		return () => document.removeEventListener('click', handleClickOutside);
 	});
 
-	const handleSelectValue = (title) => {
-		setSelectValue(title);
+	const handleSelectValue = (value) => {
+		onChange(value);
 		handleToggle(null);
 	};
 
@@ -38,8 +46,8 @@ const Select = ({ label, name, id, options, activeSelect, handleToggle }) => {
 				onClick={() => handleToggle(id)}
 				className="relative flex flex-col cursor-pointer"
 			>
-				<div className="flex justify-between p-3 rounded-lg border-2 border-[#2e374a] bg-primary">
-					<span>{selectValue}</span>
+				<div className="h-[52px] flex justify-between p-3 rounded-lg border-2 border-[#2e374a] bg-primary">
+					<span className="capitalize">{value?.title || placeholder}</span>
 
 					<motion.button
 						type="button"
@@ -61,11 +69,11 @@ const Select = ({ label, name, id, options, activeSelect, handleToggle }) => {
 							'rounded-lg border-2 border-[#2e374a] z-10'
 						)}
 					>
-						{options.map(({ id, title }) => (
+						{options.map(({ id, title, value }) => (
 							<li
 								key={id}
 								className="p-3 hover:cursor-pointer hover:bg-tertiary"
-								onClick={() => handleSelectValue(title)}
+								onClick={() => handleSelectValue({ title, value })}
 							>
 								{title}
 							</li>

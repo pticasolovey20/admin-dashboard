@@ -1,12 +1,13 @@
 import { classNames } from '@/app/utils';
 
-const TextArea = ({ name, id, placeholder, rows }) => {
+const TextArea = ({ name, id, required = false, register, placeholder, rows }) => {
 	return (
 		<textarea
-			name={name}
 			id={id}
-			placeholder={placeholder}
+			name={name}
+			{...register(name, { required })}
 			rows={rows}
+			placeholder={placeholder}
 			className={classNames(
 				'col-span-2 outline-none',
 				'text-primary p-3 bg-primary',

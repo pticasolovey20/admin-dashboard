@@ -5,6 +5,7 @@ import avatar from '@/public/noavatar.png';
 
 import { MdOutlineDelete, MdOutlineRemoveRedEye } from 'react-icons/md';
 import { classNames } from '@/app/utils';
+import { formatDate } from '../lib/helpers';
 
 const UsersTable = ({ users }) => {
 	return (
@@ -44,7 +45,7 @@ const UsersTable = ({ users }) => {
 							</td>
 
 							<td className="hidden sm:table-cell py-2.5">
-								{createdAt || '25.12.2023'}
+								{createdAt ? formatDate(createdAt) : '25.12.2023'}
 							</td>
 
 							<td className="hidden xs:table-cell py-2.5">
