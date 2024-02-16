@@ -1,22 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
 import { updateUser } from '@/app/modules/users/lib/actions';
 import { roleOptions, statusOptions } from '@/app/modules/users/constants';
+
+import toast from 'react-hot-toast';
 
 import Input from '@/app/modules/users/components/forms/Input';
 import Select from '@/app/modules/users/components/forms/Select';
 import SubmitButton from '@/app/modules/users/components/forms/SubmitButton';
 
-const UserEditForm = ({ user, id }) => {
+const UserEditForm = ({ user }) => {
 	const [activeSelect, setActiveSelect] = useState(null);
 	const handleToggle = (id) => setActiveSelect(activeSelect === id ? null : id);
+
+	const [isPending, startTransition] = useTransition();
+	const router = useRouter();
 
 	const { register, control, handleSubmit } = useForm({
 		mode: 'onChange',
 		defaultValues: {
-			id: id,
+			id: user.id,
 			username: user.username || '',
 			email: user.email || '',
 			phone: user.phone || '',
@@ -26,7 +32,13 @@ const UserEditForm = ({ user, id }) => {
 		},
 	});
 
-	const onSubmit = async (formData) => await updateUser(formData);
+	const onSubmit = (formData) => {
+		startTransition(() => {
+			updateUser(formData).then((data) => {
+				data?.error ? toast.error(data.error) : router.push('/dashboard/users');
+			});
+		});
+	};
 
 	return (
 		<form action={handleSubmit(onSubmit)} className='flex flex-col gap-2'>
@@ -104,7 +116,7 @@ const UserEditForm = ({ user, id }) => {
 				)}
 			/>
 
-			<SubmitButton label='Update' styles='mt-2' />
+			<SubmitButton label={isPending ? 'Updating...' : 'Update'} styles='mt-2' />
 		</form>
 	);
 };

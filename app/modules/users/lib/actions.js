@@ -2,8 +2,8 @@
 
 import { connectToDatabase } from '@/app/lib/utils';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { User } from './model';
+
 import bcrypt from 'bcrypt';
 
 export const addUser = async (formData) => {
@@ -27,12 +27,11 @@ export const addUser = async (formData) => {
 
 		await newUser.save();
 	} catch (error) {
-		console.log(error);
-		throw new Error('Failed to create user');
+		console.error(error);
+		return { error: 'Failed to create user' };
 	}
 
 	revalidatePath('/dashboard/users');
-	redirect('/dashboard/users');
 };
 
 export const deleteUser = async (formData) => {
@@ -44,7 +43,7 @@ export const deleteUser = async (formData) => {
 		await User.findByIdAndDelete(id);
 	} catch (error) {
 		console.log(error);
-		throw new Error('Failed to delete user');
+		return { error: 'Failed to delete user' };
 	}
 
 	revalidatePath('/dashboard/users');
@@ -73,9 +72,8 @@ export const updateUser = async (formData) => {
 		await User.findByIdAndUpdate(id, updatedFields);
 	} catch (error) {
 		console.log(error);
-		throw new Error('Failed to update user!');
+		return { error: 'Failed to update user' };
 	}
 
 	revalidatePath('/dashboard/users');
-	redirect('/dashboard/users');
 };

@@ -2,7 +2,6 @@
 
 import { connectToDatabase } from '@/app/lib/utils';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { Product } from './model';
 
 export const addProduct = async (formData) => {
@@ -24,11 +23,10 @@ export const addProduct = async (formData) => {
 		await newProduct.save();
 	} catch (error) {
 		console.log(error);
-		throw new Error('Failed to create product');
+		return { error: 'Failed to create product' };
 	}
 
 	revalidatePath('/dashboard/products');
-	redirect('/dashboard/products');
 };
 
 export const deleteProduct = async (formData) => {
@@ -40,7 +38,7 @@ export const deleteProduct = async (formData) => {
 		await Product.findByIdAndDelete(id);
 	} catch (error) {
 		console.log(error);
-		throw new Error('Failed to delete product');
+		return { error: 'Failed to delete product' };
 	}
 
 	revalidatePath('/dashboard/products');
@@ -69,9 +67,8 @@ export const updateProduct = async (formData) => {
 		await Product.findByIdAndUpdate(id, updatedFields);
 	} catch (error) {
 		console.log(error);
-		throw new Error('Failed to update product!');
+		return { error: 'Failed to update product!' };
 	}
 
 	revalidatePath('/dashboard/products');
-	redirect('/dashboard/products');
 };

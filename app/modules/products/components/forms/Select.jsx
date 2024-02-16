@@ -15,6 +15,7 @@ const Select = ({
 	activeSelect,
 	handleToggle,
 	value,
+	error,
 	onChange,
 }) => {
 	const selectRef = useRef(null);
@@ -83,6 +84,8 @@ const Select = ({
 					</ul>
 				)}
 			</div>
+
+			{error && <span className='text-[#e04949] font-semibold ml-1'>{error?.message}</span>}
 		</div>
 	);
 };

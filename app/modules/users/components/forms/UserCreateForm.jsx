@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
 import { addUser } from '@/app/modules/users/lib/actions';
 import { roleOptions, statusOptions } from '@/app/modules/users/constants';
-
 import { cn } from '@/app/utils';
+
+import toast from 'react-hot-toast';
 
 import Input from '@/app/modules/users/components/forms/Input';
 import Select from '@/app/modules/users/components/forms/Select';
@@ -16,8 +18,25 @@ const UserForm = () => {
 	const [activeSelect, setActiveSelect] = useState(null);
 	const handleToggle = (id) => setActiveSelect(activeSelect === id ? null : id);
 
-	const { register, control, handleSubmit } = useForm({ mode: 'onChange' });
-	const onSubmit = async (formData) => await addUser(formData);
+	const [isPending, startTransition] = useTransition();
+	const router = useRouter();
+
+	const {
+		register,
+		control,
+		handleSubmit,
+		formState: {
+			errors: { username: usernameError, email: emailError, password: passwordError },
+		},
+	} = useForm({ mode: 'onChange' });
+
+	const onSubmit = (formData) => {
+		startTransition(() => {
+			addUser(formData).then((data) => {
+				data?.error ? toast.error(data.error) : router.push('/dashboard/users');
+			});
+		});
+	};
 
 	return (
 		<form
@@ -27,7 +46,8 @@ const UserForm = () => {
 			<Input
 				id='username'
 				name='username'
-				required={true}
+				required={{ required: 'The field is required' }}
+				error={usernameError}
 				register={register}
 				placeholder='Username'
 			/>
@@ -36,7 +56,8 @@ const UserForm = () => {
 				id='email'
 				name='email'
 				type='email'
-				required={true}
+				required={{ required: 'Please enter a valid email' }}
+				error={emailError}
 				register={register}
 				placeholder='Email'
 			/>
@@ -45,7 +66,8 @@ const UserForm = () => {
 				id='password'
 				name='password'
 				type='password'
-				required={true}
+				required={{ required: 'Password must be at least 8 characters' }}
+				error={passwordError}
 				register={register}
 				placeholder='Password'
 			/>
@@ -55,6 +77,7 @@ const UserForm = () => {
 			<Controller
 				name='role'
 				control={control}
+				defaultValue={roleOptions[0].value}
 				render={({ field: { value, onChange } }) => (
 					<Select
 						id='role'
@@ -72,6 +95,7 @@ const UserForm = () => {
 			<Controller
 				name='status'
 				control={control}
+				defaultValue={statusOptions[1].value}
 				render={({ field: { value, onChange } }) => (
 					<Select
 						id='status'
@@ -88,7 +112,7 @@ const UserForm = () => {
 
 			<TextArea name='address' id='address' register={register} placeholder='Address' rows={8} />
 
-			<SubmitButton label='Submit' />
+			<SubmitButton label={isPending ? 'Posting...' : 'Submit'} />
 		</form>
 	);
 };

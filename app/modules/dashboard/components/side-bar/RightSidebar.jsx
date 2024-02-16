@@ -20,7 +20,7 @@ const RightSidebar = ({ openSidebar, setOpenSidebar }) => {
 						variants={rightSideAnimation}
 						className={cn(
 							'fixed top-0 right-0 h-screen w-full sm:w-[350px] z-20',
-							'flex flex-col gap-4 pt-10 px-2 bg-secondary shadow-md shadow-black'
+							'flex flex-col lg:hidden gap-4 pt-10 px-2 bg-secondary shadow-md shadow-black'
 						)}
 					>
 						<button onClick={() => setOpenSidebar(false)} className='ml-2.5'>

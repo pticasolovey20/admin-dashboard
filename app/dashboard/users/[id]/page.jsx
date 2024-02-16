@@ -1,5 +1,4 @@
 import { fetchUser } from '@/app/modules/users/lib/utils';
-import { cn } from '@/app/utils';
 
 import Image from 'next/image';
 import UserEditForm from '@/app/modules/users/components/forms/UserEditForm';
@@ -10,15 +9,19 @@ const UserDetailsPage = async ({ params }) => {
 	const { id } = params;
 	const user = await fetchUser(id);
 
+	const userProps = {
+		id,
+		username: user.username,
+		email: user.email,
+		phone: user.phone,
+		address: user.address,
+		role: user.role,
+		status: user.status,
+	};
+
 	return (
 		<div className='flex-1 flex flex-col sm:flex-row gap-5'>
-			<div
-				className={cn(
-					'flex-1 h-fit flex gap-5',
-					'flex-col xs:flex-row sm:flex-col',
-					'p-5 rounded-xl bg-secondary'
-				)}
-			>
+			<div className='flex-1 h-fit flex gap-5 flex-col xs:flex-row sm:flex-col'>
 				<div className='relative w-full xs:w-[50%] sm:w-full rounded-lg aspect-square overflow-hidden'>
 					<Image
 						src={user?.userImage || noavatar}
@@ -27,12 +30,10 @@ const UserDetailsPage = async ({ params }) => {
 						className='w-full h-full object-cover'
 					/>
 				</div>
-
-				<span className='font-bold text-secondary truncate'>Jhon Doe</span>
 			</div>
 
 			<div className='flex-[3] h-fit p-5 rounded-xl bg-secondary'>
-				<UserEditForm user={user} id={id} />
+				<UserEditForm user={userProps} />
 			</div>
 		</div>
 	);
