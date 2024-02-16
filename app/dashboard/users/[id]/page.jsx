@@ -1,34 +1,38 @@
-import { classNames } from '@/app/utils';
+import { fetchUser } from '@/app/modules/users/lib/utils';
+import { cn } from '@/app/utils';
 
 import Image from 'next/image';
 import UserEditForm from '@/app/modules/users/components/forms/UserEditForm';
 
-import avatar from '@/public/noavatar.png';
+import noavatar from '@/public/noavatar.png';
 
-const UserDetailsPage = () => {
+const UserDetailsPage = async ({ params }) => {
+	const { id } = params;
+	const user = await fetchUser(id);
+
 	return (
-		<div className="flex-1 flex flex-col sm:flex-row gap-5">
+		<div className='flex-1 flex flex-col sm:flex-row gap-5'>
 			<div
-				className={classNames(
+				className={cn(
 					'flex-1 h-fit flex gap-5',
 					'flex-col xs:flex-row sm:flex-col',
 					'p-5 rounded-xl bg-secondary'
 				)}
 			>
-				<div className="relative w-full xs:w-[50%] sm:w-full rounded-lg aspect-square overflow-hidden">
+				<div className='relative w-full xs:w-[50%] sm:w-full rounded-lg aspect-square overflow-hidden'>
 					<Image
-						src={avatar}
-						alt="avatar"
+						src={user?.userImage || noavatar}
+						alt='avatar'
 						priority
-						className="w-full h-full object-cover"
+						className='w-full h-full object-cover'
 					/>
 				</div>
 
-				<span className="font-bold text-secondary truncate">Jhon Doe</span>
+				<span className='font-bold text-secondary truncate'>Jhon Doe</span>
 			</div>
 
-			<div className="flex-[3] h-fit p-5 rounded-xl bg-secondary">
-				<UserEditForm />
+			<div className='flex-[3] h-fit p-5 rounded-xl bg-secondary'>
+				<UserEditForm user={user} id={id} />
 			</div>
 		</div>
 	);

@@ -1,6 +1,6 @@
 import { cn } from '@/app/utils';
 
-const Input = ({ label, name, id, type = 'text', placeholder }) => {
+const Input = ({ label, name, register, required = false, id, type = 'text', placeholder }) => {
 	return (
 		<div className='col-span-2 sm:col-span-1 flex flex-col gap-1'>
 			{label && (
@@ -10,9 +10,10 @@ const Input = ({ label, name, id, type = 'text', placeholder }) => {
 			)}
 
 			<input
-				name={name}
 				id={id}
+				name={name}
 				type={type}
+				{...register(name, { required })}
 				placeholder={placeholder}
 				className={cn(
 					'text-primary p-3 rounded-lg border-2',

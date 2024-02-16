@@ -26,13 +26,13 @@ const SearchInput = () => {
 	}, 300);
 
 	return (
-		<div className="flex items-center gap-3 p-2 rounded-lg bg-tertiary">
-			<MdSearch size={20} className="cursor-pointer" />
+		<div className='flex items-center gap-3 p-2 rounded-lg bg-tertiary'>
+			<MdSearch size={20} className='cursor-pointer' />
 			<input
-				type="text"
+				type='text'
 				onChange={handleSearch}
-				placeholder="Search for a product"
-				className="text-secondary border-none outline-none bg-transparent"
+				placeholder='Search for a product'
+				className='text-secondary border-none outline-none bg-transparent'
 			/>
 		</div>
 	);

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { classNames } from '@/app/utils';
+import { cn } from '@/app/utils';
 
 import { FiChevronDown } from 'react-icons/fi';
 
@@ -36,22 +36,22 @@ const Select = ({
 	};
 
 	return (
-		<div className="col-span-2 sm:col-span-1 flex flex-col gap-1">
-			{label && <label className="ml-1">{label}</label>}
+		<div className='col-span-2 sm:col-span-1 flex flex-col gap-1'>
+			{label && <label className='ml-1'>{label}</label>}
 
 			<div
 				id={id}
 				name={name}
 				ref={selectRef}
 				onClick={() => handleToggle(id)}
-				className="relative flex flex-col cursor-pointer"
+				className='relative flex flex-col cursor-pointer'
 			>
-				<div className="h-[52px] flex justify-between p-3 rounded-lg border-2 border-[#2e374a] bg-primary">
-					<span className="capitalize">{value?.title || placeholder}</span>
+				<div className='h-[52px] flex justify-between p-3 rounded-lg border-2 border-[#2e374a] bg-primary'>
+					<span className='capitalize'>{value || placeholder}</span>
 
 					<motion.button
-						type="button"
-						key="trigger"
+						type='button'
+						key='trigger'
 						initial={{ rotate: 0 }}
 						animate={{ rotate: isCurrentSelectOpen ? -180 : 0 }}
 						exit={{ rotate: 0 }}
@@ -63,7 +63,7 @@ const Select = ({
 
 				{isCurrentSelectOpen && (
 					<ul
-						className={classNames(
+						className={cn(
 							'sm:absolute top-16 mt-2 sm:mt-0',
 							'w-full h-auto flex flex-col bg-primary',
 							'rounded-lg border-2 border-[#2e374a] z-10'
@@ -72,8 +72,8 @@ const Select = ({
 						{options.map(({ id, title, value }) => (
 							<li
 								key={id}
-								className="p-3 hover:cursor-pointer hover:bg-tertiary"
-								onClick={() => handleSelectValue({ title, value })}
+								className='p-3 hover:cursor-pointer hover:bg-tertiary'
+								onClick={() => handleSelectValue(value)}
 							>
 								{title}
 							</li>

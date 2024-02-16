@@ -8,8 +8,8 @@ const userSchema = new mongoose.Schema(
 		phone: { type: String },
 		address: { type: String, min: 8, max: 20 },
 		userImage: { type: String },
-		isAdmin: { type: Boolean, default: false },
-		isActive: { type: Boolean, default: true },
+		role: { type: String, required: true },
+		status: { type: String, required: true },
 	},
 
 	{ timestamps: true }

@@ -1,7 +1,9 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { classNames } from '@/app/utils';
+import { cn } from '@/app/utils';
+
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
 const Pagination = ({ count }) => {
 	const searchParams = useSearchParams();
@@ -24,27 +26,21 @@ const Pagination = ({ count }) => {
 	};
 
 	return (
-		<div className="flex justify-start gap-4">
+		<div className='flex justify-start gap-4'>
 			<button
 				disabled={!hasPrev}
 				onClick={() => handleChangePage('prev')}
-				className={classNames(
-					'text-black py-1 px-2 rounded-md',
-					hasPrev ? 'bg-white' : 'bg-gray-400'
-				)}
+				className={cn('text-black py-1 px-2 rounded-md', hasPrev ? 'bg-white' : 'bg-gray-400')}
 			>
-				Prev
+				<MdChevronLeft size={20} />
 			</button>
 
 			<button
 				disabled={!hasNext}
 				onClick={() => handleChangePage('next')}
-				className={classNames(
-					'text-black py-1 px-2 rounded-md',
-					hasNext ? 'bg-white' : 'bg-gray-400'
-				)}
+				className={cn('text-black py-1 px-2 rounded-md', hasNext ? 'bg-white' : 'bg-gray-400')}
 			>
-				Next
+				<MdChevronRight size={20} />
 			</button>
 		</div>
 	);

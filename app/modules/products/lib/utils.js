@@ -20,3 +20,15 @@ export const fetchProducts = async (query, page) => {
 		throw new Error('Failed to fecth products!');
 	}
 };
+
+export const fetchProduct = async (id) => {
+	try {
+		connectToDatabase();
+
+		const product = await Product.findById(id);
+		return product;
+	} catch (error) {
+		console.log(error);
+		throw new Error('Failed to fecth users!');
+	}
+};

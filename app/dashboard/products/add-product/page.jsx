@@ -1,8 +1,8 @@
-import ProductForm from '@/app/modules/products/components/form/ProductCreateForm';
+import ProductForm from '@/app/modules/products/components/forms/ProductCreateForm';
 
 const AddProductPage = () => {
 	return (
-		<div className="flex-1">
+		<div className='flex-1'>
 			<ProductForm />
 		</div>
 	);

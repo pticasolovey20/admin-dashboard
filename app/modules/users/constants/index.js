@@ -1,9 +1,9 @@
 export const roleOptions = [
-	{ id: 1, title: 'Client', value: false },
-	{ id: 2, title: 'Admin', value: true },
+	{ id: 1, title: 'Client', value: 'Client' },
+	{ id: 2, title: 'Admin', value: 'Admin' },
 ];
 
 export const statusOptions = [
-	{ id: 1, title: 'Passive', value: false },
-	{ id: 2, title: 'Active', value: true },
+	{ id: 1, title: 'Passive', value: 'Passive' },
+	{ id: 2, title: 'Active', value: 'Active' },
 ];

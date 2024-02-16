@@ -1,106 +1,94 @@
 'use client';
 
 import { useState } from 'react';
-import { classNames } from '@/app/utils';
-import { addUser } from '../../lib/actions';
-import { roleOptions, statusOptions } from '../../constants';
-
-import Input from './Input';
-import Select from './Select';
-import TextArea from './TextArea';
-import SubmitButton from './SubmitButton';
-
 import { Controller, useForm } from 'react-hook-form';
+import { addUser } from '@/app/modules/users/lib/actions';
+import { roleOptions, statusOptions } from '@/app/modules/users/constants';
+
+import { cn } from '@/app/utils';
+
+import Input from '@/app/modules/users/components/forms/Input';
+import Select from '@/app/modules/users/components/forms/Select';
+import TextArea from '@/app/modules/users/components/forms/TextArea';
+import SubmitButton from '@/app/modules/users/components/forms/SubmitButton';
 
 const UserForm = () => {
 	const [activeSelect, setActiveSelect] = useState(null);
-
-	const { register, control, handleSubmit } = useForm({ mode: 'onChange' });
-
 	const handleToggle = (id) => setActiveSelect(activeSelect === id ? null : id);
 
+	const { register, control, handleSubmit } = useForm({ mode: 'onChange' });
 	const onSubmit = async (formData) => await addUser(formData);
 
 	return (
 		<form
 			action={handleSubmit(onSubmit)}
-			className={classNames(
-				'grid grid-cols-1 sm:grid-cols-2 gap-5',
-				'p-5 rounded-xl bg-secondary'
-			)}
+			className={cn('grid grid-cols-1 sm:grid-cols-2 gap-5', 'p-5 rounded-xl bg-secondary')}
 		>
 			<Input
-				name="username"
-				id="username"
-				required
+				id='username'
+				name='username'
+				required={true}
 				register={register}
-				type="text"
-				placeholder="Username"
+				placeholder='Username'
 			/>
 
 			<Input
-				name="email"
-				id="email"
-				required
+				id='email'
+				name='email'
+				type='email'
+				required={true}
 				register={register}
-				type="email"
-				placeholder="Email"
+				placeholder='Email'
 			/>
 
 			<Input
-				name="password"
-				id="password"
-				required
+				id='password'
+				name='password'
+				type='password'
+				required={true}
 				register={register}
-				type="password"
-				placeholder="Password"
+				placeholder='Password'
 			/>
 
-			<Input name="phone" id="phone" register={register} type="phone" placeholder="Phone" />
+			<Input name='phone' id='phone' register={register} type='phone' placeholder='Phone' />
 
 			<Controller
-				name="role"
+				name='role'
 				control={control}
-				render={({ field }) => (
+				render={({ field: { value, onChange } }) => (
 					<Select
-						id="role"
-						name="role"
-						value={field.value}
+						id='role'
+						name='role'
+						value={value}
 						options={roleOptions}
-						placeholder="Select value"
+						placeholder='Select value'
 						activeSelect={activeSelect}
 						handleToggle={handleToggle}
-						onChange={(value) => field.onChange(value)}
+						onChange={(value) => onChange(value)}
 					/>
 				)}
 			/>
 
 			<Controller
-				name="status"
+				name='status'
 				control={control}
-				render={({ field }) => (
+				render={({ field: { value, onChange } }) => (
 					<Select
-						id="status"
-						name="status"
-						value={field.value}
+						id='status'
+						name='status'
+						value={value}
 						options={statusOptions}
-						placeholder="Select value"
+						placeholder='Select value'
 						activeSelect={activeSelect}
 						handleToggle={handleToggle}
-						onChange={(value) => field.onChange(value)}
+						onChange={(value) => onChange(value)}
 					/>
 				)}
 			/>
 
-			<TextArea
-				name="address"
-				id="address"
-				register={register}
-				placeholder="Address"
-				rows={8}
-			/>
+			<TextArea name='address' id='address' register={register} placeholder='Address' rows={8} />
 
-			<SubmitButton label="Submit" />
+			<SubmitButton label='Submit' />
 		</form>
 	);
 };

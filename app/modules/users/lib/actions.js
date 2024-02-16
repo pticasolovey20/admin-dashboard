@@ -21,14 +21,59 @@ export const addUser = async (formData) => {
 			email,
 			address,
 			phone,
-			isAdmin: role?.value,
-			isActive: status?.value,
+			role,
+			status,
 		});
 
 		await newUser.save();
 	} catch (error) {
 		console.log(error);
 		throw new Error('Failed to create user');
+	}
+
+	revalidatePath('/dashboard/users');
+	redirect('/dashboard/users');
+};
+
+export const deleteUser = async (formData) => {
+	const { id } = Object.fromEntries(formData);
+
+	try {
+		connectToDatabase();
+
+		await User.findByIdAndDelete(id);
+	} catch (error) {
+		console.log(error);
+		throw new Error('Failed to delete user');
+	}
+
+	revalidatePath('/dashboard/users');
+};
+
+export const updateUser = async (formData) => {
+	const { id, username, password, email, address, phone, role, status } = formData;
+
+	try {
+		connectToDatabase();
+
+		const updatedFields = {
+			username,
+			password,
+			email,
+			address,
+			phone,
+			role,
+			status,
+		};
+
+		Object.keys(updatedFields).forEach(
+			(key) => (updatedFields[key] === '' || undefined) && delete updatedFields[key]
+		);
+
+		await User.findByIdAndUpdate(id, updatedFields);
+	} catch (error) {
+		console.log(error);
+		throw new Error('Failed to update user!');
 	}
 
 	revalidatePath('/dashboard/users');
