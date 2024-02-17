@@ -1,8 +1,10 @@
+import { Suspense } from 'react';
 import { fetchProducts } from '@/app/modules/products/lib/utils';
 
 import Link from 'next/link';
 
 import SearchInput from '@/app/modules/products/components/SearchInput';
+import TableSkeleton from '@/app/modules/products/components/TableSkeleton';
 import ProductsTable from '@/app/modules/products/components/ProductsTable';
 import Empty from '@/app/modules/products/components/Empty';
 import Pagination from '@/app/modules/products/components/Pagination';
@@ -25,10 +27,12 @@ const ProductsPage = async ({ searchParams }) => {
 				</div>
 
 				{products.length > 0 ? (
-					<div className='flex flex-col gap-4 w-full p-5 rounded-xl bg-secondary'>
-						<ProductsTable products={products} />
-						<Pagination count={count} />
-					</div>
+					<Suspense fallback={<TableSkeleton />}>
+						<div className='flex flex-col gap-4 w-full p-5 rounded-xl bg-secondary'>
+							<ProductsTable products={products} />
+							<Pagination count={count} />
+						</div>
+					</Suspense>
 				) : (
 					<Empty />
 				)}

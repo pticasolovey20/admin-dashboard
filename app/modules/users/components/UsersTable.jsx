@@ -6,9 +6,11 @@ import avatar from '@/public/noavatar.png';
 import { MdOutlineDelete, MdOutlineRemoveRedEye } from 'react-icons/md';
 import { formatDate } from '@/app/lib/helpers';
 import { deleteUser } from '../lib/actions';
-import { cn } from '@/app/utils';
+import { cn, delay } from '@/app/utils';
 
-const UsersTable = ({ users }) => {
+const UsersTable = async ({ users }) => {
+	await delay(2000);
+
 	return (
 		<table className='w-full'>
 			<thead className='border-b border-[#2e374a]'>
