@@ -10,7 +10,7 @@ export const metadata = {
 const RootLayout = ({ children }) => {
 	return (
 		<html lang='en'>
-			<body suppressHydrationWarning={true} className='text-primary bg-primary'>
+			<body suppressHydrationWarning={true} className='h-screen text-primary bg-primary'>
 				<Toaster position='bottom-right' />
 				{children}
 			</body>

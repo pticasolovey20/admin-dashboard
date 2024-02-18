@@ -1,8 +1,11 @@
-import Image from 'next/image';
+import { delay } from '@/app/utils';
 
+import Image from 'next/image';
 import avatar from '@/public/noavatar.png';
 
-const Transactions = () => {
+const Transactions = async () => {
+	await delay(2000);
+
 	return (
 		<div className='p-5 rounded-xl bg-secondary'>
 			<h2 className='text-2xl text-secondary font-extralight mb-5'>Latest Transactions</h2>
