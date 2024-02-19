@@ -1,8 +1,10 @@
+import { Suspense } from 'react';
 import { fetchUsers } from '@/app/modules/users/lib/utils';
 
 import Link from 'next/link';
 
 import SearchInput from '@/app/modules/users/components/SearchInput';
+import TableSkeleton from '@/app/modules/users/components/TableSkeleton';
 import UsersTable from '@/app/modules/users/components/UsersTable';
 import Empty from '@/app/modules/users/components/Empty';
 import Pagination from '@/app/modules/users/components/Pagination';
@@ -24,10 +26,12 @@ const UsersPage = async ({ searchParams }) => {
 				</div>
 
 				{users.length > 0 ? (
-					<div className='flex flex-col gap-4 w-full p-5 rounded-xl bg-secondary'>
-						<UsersTable users={users} />
-						<Pagination count={count} />
-					</div>
+					<Suspense fallback={<TableSkeleton />}>
+						<div className='flex flex-col gap-4 w-full p-5 rounded-xl bg-secondary'>
+							<UsersTable users={users} />
+							<Pagination count={count} />
+						</div>
+					</Suspense>
 				) : (
 					<Empty />
 				)}

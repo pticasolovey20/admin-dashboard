@@ -6,9 +6,11 @@ import product from '@/public/noproduct.jpg';
 import { MdOutlineDelete, MdOutlineRemoveRedEye } from 'react-icons/md';
 import { deleteProduct } from '../lib/actions';
 import { formatDate } from '@/app/lib/helpers';
-import { cn } from '@/app/utils';
+import { cn, delay } from '@/app/utils';
 
-const ProductsTable = ({ products }) => {
+const ProductsTable = async ({ products }) => {
+	await delay(2000);
+
 	return (
 		<table className='w-full'>
 			<thead className='border-b border-[#2e374a]'>

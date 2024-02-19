@@ -1,6 +1,6 @@
 import LeftSidebar from '@/app/modules/dashboard/components/side-bar/LeftSidebar';
-import Navbar from '@/app/modules/dashboard/components/nav-bar/Navbar';
-import Footer from '@/app/modules/dashboard/components/footer/Footer';
+import Navbar from '@/app/modules/dashboard/components/Navbar';
+import Footer from '@/app/modules/dashboard/components/Footer';
 
 const DashboardLayout = ({ children }) => {
 	return (

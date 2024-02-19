@@ -9,7 +9,7 @@ import {
 	MdPublic,
 } from 'react-icons/md';
 
-import RightSidebar from '../side-bar/RightSidebar';
+import RightSidebar from './side-bar/RightSidebar';
 import Link from 'next/link';
 
 const Navbar = () => {
