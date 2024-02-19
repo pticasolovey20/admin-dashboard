@@ -24,10 +24,12 @@ const UserDetailsPage = async ({ params }) => {
 			<div className='flex-1 h-fit flex gap-5 flex-col xs:flex-row sm:flex-col'>
 				<div className='relative w-full xs:w-[50%] sm:w-full rounded-lg aspect-square overflow-hidden'>
 					<Image
+						fill
+						priority
 						src={user?.userImage || noavatar}
 						alt='avatar'
-						priority
 						className='w-full h-full object-cover'
+						sizes='(width:100%), (height:100%)'
 					/>
 				</div>
 			</div>

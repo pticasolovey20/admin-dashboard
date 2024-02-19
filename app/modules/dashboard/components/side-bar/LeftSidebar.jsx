@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { MdChevronLeft, MdChevronRight, MdLogout } from 'react-icons/md';
 
 import { leftSideAnimation, menuItemAnimation } from '../../animation';
+import { handleLogout } from '@/app/modules/auth/lib/actions';
 import { menuItems } from '../../constants';
 import { cn } from '@/app/utils';
 
@@ -13,7 +14,7 @@ import Image from 'next/image';
 import MenuLink from './MenuLink';
 import avatar from '@/public/noavatar.png';
 
-const LeftSidebar = () => {
+const LeftSidebar = ({ user }) => {
 	const [open, setOpen] = useState(false);
 
 	return (
@@ -27,12 +28,16 @@ const LeftSidebar = () => {
 					className='h-full flex flex-col p-5 bg-secondary'
 				>
 					<div className='relative w-full flex items-center gap-5 my-5'>
-						<Image
-							src={avatar}
-							alt='avatar'
-							priority
-							className='h-[50px] w-[50px] rounded-full object-cover'
-						/>
+						<div className='relative w-[50px] h-[50px] aspect-square'>
+							<Image
+								fill
+								priority
+								src={user.userImage || avatar}
+								alt='avatar'
+								className='rounded-full object-cover'
+								sizes='(height:50px), (width:50px)'
+							/>
+						</div>
 
 						{open && (
 							<motion.div
@@ -42,7 +47,7 @@ const LeftSidebar = () => {
 								variants={menuItemAnimation}
 								className='flex flex-col'
 							>
-								<span className='font-medium whitespace-nowrap'>Jhon Doe</span>
+								<span className='font-medium whitespace-nowrap'>{user.username}</span>
 								<span className='text-xs text-secondary'>Administrator</span>
 							</motion.div>
 						)}
@@ -69,29 +74,31 @@ const LeftSidebar = () => {
 						))}
 					</ul>
 
-					<button
-						className={cn(
-							'w-full flex items-center gap-3',
-							'p-3 mt-2 rounded-xl duration-300',
-							'text-gray-400 hover:text-white'
-						)}
-					>
-						<div>
-							<MdLogout size={30} />
-						</div>
+					<form action={handleLogout}>
+						<button
+							className={cn(
+								'w-full flex items-center gap-3',
+								'p-3 mt-2 rounded-xl duration-300',
+								'text-gray-400 hover:text-white'
+							)}
+						>
+							<div>
+								<MdLogout size={30} />
+							</div>
 
-						{open && (
-							<motion.span
-								initial='hidden'
-								animate='show'
-								exit='hidden'
-								variants={menuItemAnimation}
-								className='font-medium text-action'
-							>
-								Logout
-							</motion.span>
-						)}
-					</button>
+							{open && (
+								<motion.span
+									initial='hidden'
+									animate='show'
+									exit='hidden'
+									variants={menuItemAnimation}
+									className='font-medium text-action'
+								>
+									Logout
+								</motion.span>
+							)}
+						</button>
+					</form>
 				</motion.nav>
 			</AnimatePresence>
 		</section>

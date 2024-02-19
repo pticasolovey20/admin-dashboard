@@ -1,5 +1,3 @@
-import { cn } from '@/app/utils';
-
 import Link from 'next/link';
 
 import Input from './Input';
@@ -7,12 +5,7 @@ import SubmitButton from './SubmitButton';
 
 const SignUpForm = () => {
 	return (
-		<form
-			className={cn(
-				'flex flex-col gap-5 p-5 rounded-lg bg-secondary',
-				'w-full xs:w-[80%] sm:w-[60%] md:w-[50%] lg:w-[40%] xl:w-[30%] xxl:w-[25%]'
-			)}
-		>
+		<form className='w-full xs:w-[400px] flex flex-col gap-5 p-5 rounded-lg bg-secondary'>
 			<h2 className='text-2xl text-center font-semibold text-secondary mt-2 mb-4'>
 				Welcome There!
 			</h2>
