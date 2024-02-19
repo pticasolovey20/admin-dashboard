@@ -1,11 +1,15 @@
 'use client';
 
+import { useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { cn } from '@/app/utils';
 
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { TailSpin } from 'react-loader-spinner';
 
 const Pagination = ({ count }) => {
+	const [isPending, startTransition] = useTransition();
+
 	const searchParams = useSearchParams();
 	const { replace } = useRouter();
 	const pathname = usePathname();
@@ -17,13 +21,14 @@ const Pagination = ({ count }) => {
 	const hasPrev = ITEM_PER_PAGE * (parseInt(page) - 1) > 0;
 	const hasNext = ITEM_PER_PAGE * (parseInt(page) - 1) + ITEM_PER_PAGE < count;
 
-	const handleChangePage = (type) => {
-		type === 'prev'
-			? params.set('page', parseInt(page) - 1)
-			: params.set('page', parseInt(page) + 1);
+	const handleChangePage = (type) =>
+		startTransition(() => {
+			type === 'prev'
+				? params.set('page', parseInt(page) - 1)
+				: params.set('page', parseInt(page) + 1);
 
-		replace(`${pathname}?${params}`);
-	};
+			replace(`${pathname}?${params}`);
+		});
 
 	return (
 		<div className='flex justify-start gap-4'>
@@ -34,6 +39,16 @@ const Pagination = ({ count }) => {
 			>
 				<MdChevronLeft size={20} />
 			</button>
+
+			{isPending && (
+				<TailSpin
+					height='20'
+					width='20'
+					color='#ffffff'
+					visible={true}
+					ariaLabel='tail-spin-loading'
+				/>
+			)}
 
 			<button
 				disabled={!hasNext}
