@@ -27,10 +27,7 @@ const Navbar = () => {
 					<MdOutlineChat size={25} className='cursor-pointer' />
 					<MdNotifications size={25} className='cursor-pointer' />
 					<MdPublic size={25} className='cursor-pointer' />
-
-					<button onClick={() => setOpenSidebar(true)} className='lg:hidden'>
-						<MdMenuOpen size={25} />
-					</button>
+					<MdMenuOpen size={25} onClick={() => setOpenSidebar(true)} className='lg:hidden' />
 				</div>
 			</section>
 

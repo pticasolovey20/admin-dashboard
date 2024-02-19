@@ -1,8 +1,8 @@
-import SignInForm from '../modules/auth/components/SignInForm';
+import SignInForm from '@/app/modules/auth/components/SignInForm';
 
 const SignInPage = () => {
 	return (
-		<main className="min-h-screen w-full flex items-center justify-center p-5">
+		<main className='min-h-screen w-full flex items-center justify-center p-5'>
 			<SignInForm />
 		</main>
 	);

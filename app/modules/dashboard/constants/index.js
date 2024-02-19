@@ -73,6 +73,13 @@ export const menuItems = [
 	},
 ];
 
+export const transactions = [
+	{ id: 1, name: 'J. Smith', status: 'Complete', date: '25.12.2023', amount: '3.593' },
+	{ id: 2, name: 'J. Cena', status: 'Pending', date: '14.02.2024', amount: '1.356' },
+	{ id: 3, name: 'J. Doe', status: 'Complete', date: '09.01.2024', amount: '8.426' },
+	{ id: 4, name: 'J. Snow', status: 'Rejected', date: '17.01.2024', amount: '0.001' },
+];
+
 export const chartData = [
 	{
 		name: 'S',

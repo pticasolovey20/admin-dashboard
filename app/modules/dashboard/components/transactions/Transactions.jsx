@@ -1,4 +1,5 @@
-import { delay } from '@/app/utils';
+import { cn, delay } from '@/app/utils';
+import { transactions } from '../../constants';
 
 import Image from 'next/image';
 import avatar from '@/public/noavatar.png';
@@ -21,8 +22,8 @@ const Transactions = async () => {
 				</thead>
 
 				<tbody>
-					{Array.from({ length: 4 }).map((_, index) => (
-						<tr key={index} className='border-b border-[#2e374a]'>
+					{transactions.map(({ id, name, status, date, amount }) => (
+						<tr key={id} className='border-b border-[#2e374a]'>
 							<td className='py-2.5'>
 								<div className='flex items-center gap-2.5'>
 									<Image
@@ -32,18 +33,25 @@ const Transactions = async () => {
 										className='hidden sm:block w-8 h-8 rounded-full object-cover'
 									/>
 
-									<span className='truncate'>J. Doe</span>
+									<span className='truncate'>{name}</span>
 								</div>
 							</td>
 
 							<td className='min-w-[30px] py-2.5'>
-								<div className='w-1/2 sm:w-fit py-1 px-2 rounded-md bg-[#ebc034]'>
-									<span className='hidden sm:block text-sm'>Pending</span>
+								<div
+									className={cn(
+										'w-1/2 sm:w-fit py-1 px-2 rounded-md',
+										status === 'Pending' && 'bg-[#ebc034]',
+										status === 'Rejected' && 'bg-[#eb4034]',
+										status === 'Complete' && 'bg-[#5ab947]'
+									)}
+								>
+									<span className='hidden sm:block text-sm'>{status}</span>
 								</div>
 							</td>
 
-							<td className='py-2.5'>25.12.2023</td>
-							<td className='py-2.5'>$3.200</td>
+							<td className='py-2.5'>{date}</td>
+							<td className='py-2.5'>$ {amount}</td>
 						</tr>
 					))}
 				</tbody>

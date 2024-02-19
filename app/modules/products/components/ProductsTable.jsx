@@ -31,14 +31,16 @@ const ProductsTable = async ({ products }) => {
 						<tr key={id} className={cn(isLastRow && 'border-b border-[#2e374a]')}>
 							<td className='py-2.5'>
 								<div className='flex items-center gap-2.5'>
-									<Image
-										src={productImage || product}
-										alt={title}
-										priority
-										width={30}
-										height={30}
-										className='hidden sm:block rounded-full object-cover'
-									/>
+									<div className='relative hidden sm:block h-[30px] w-[30px] aspect-square'>
+										<Image
+											fill
+											priority
+											src={productImage || product}
+											alt={title}
+											className='rounded-full object-cover'
+											sizes='(width:30px), (height:30px)'
+										/>
+									</div>
 
 									<span>{title}</span>
 								</div>
